@@ -1,14 +1,9 @@
 import argparse
-import os
 
 from dotenv import load_dotenv
 
 from models.chat_completion import ChatCompletion
 
-
-base_dir = os.path.abspath(os.path.dirname(__file__))
-dotenv_path = os.path.join(base_dir, 'dev.env')
-load_dotenv(dotenv_path=dotenv_path)
 
 def main():
     parser = argparse.ArgumentParser()
@@ -16,6 +11,8 @@ def main():
     parser.add_argument("-m", "--model", help="The model of the chatbot to use.", 
                         choices=['gpt-3.5-turbo', 'gpt-4'], default='gpt-3.5-turbo')
     args = parser.parse_args()
+
+    load_dotenv()
 
     chat = ChatCompletion(model=args.model)
     user_content = args.prompt
